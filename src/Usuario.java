@@ -35,5 +35,9 @@ public class Usuario {
     public String getNombreCompleto() {
         return nombre + " " + apellido;
     }
+    // Método para saber cuántos libros tiene prestados el usuario
+    public int cantidadLibrosPrestados() {
+        return librosPrestados.size();
+    }
 
 }

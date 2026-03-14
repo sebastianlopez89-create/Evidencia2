@@ -30,5 +30,17 @@ public class Biblioteca {
             System.out.println("----------------------");
         }
     }
-}
 
+    // Método para prestar un libro a un usuario
+    public void prestarLibroAUsuario(Libro libro, Usuario usuario) {
+        // Verifica si el usuario tiene menos de 3 libros prestados
+        if (usuario.cantidadLibrosPrestados() < 3 && libro.isDisponible()) {
+            usuario.prestarLibro(libro);
+            System.out.println("Préstamo realizado correctamente.");
+        } else if (usuario.cantidadLibrosPrestados() >= 3) {
+            System.out.println("El usuario ya tiene 3 libros prestados y no puede prestar más.");
+        } else {
+            System.out.println("El libro no está disponible para préstamo.");
+        }
+    }
+}
