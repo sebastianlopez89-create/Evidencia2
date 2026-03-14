@@ -26,5 +26,20 @@ public class Main {
         // Aquí también se verá qué usuario tiene el libro prestado.
         System.out.println("\nEstado final del libro y usuario que lo tiene prestado:");
         libro1.mostrarInformacion();
+
+        // Crear más libros para probar el límite de préstamo
+        Libro libro2 = new Libro(2, "El principito", "Antoine de Saint-Exupéry", 1943, "Infantil", true);
+        Libro libro3 = new Libro(3, "Don Quijote de la Mancha", "Miguel de Cervantes", 1605, "Novela", true);
+        Libro libro4 = new Libro(4, "La Odisea", "Homero", -800, "Épico", true);
+
+        // Prestar tres libros (debería funcionar)
+        System.out.println("\nPréstamo del segundo libro:");
+        usuario1.prestarLibro(libro2);
+        System.out.println("\nPréstamo del tercer libro:");
+        usuario1.prestarLibro(libro3);
+
+        // Intentar prestar un cuarto libro (debería mostrar el mensaje de límite)
+        System.out.println("\nIntentando prestar un cuarto libro:");
+        usuario1.prestarLibro(libro4);
     }
 }

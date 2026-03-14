@@ -28,6 +28,11 @@ public class Libro {
         this.usuarioPrestamo = usuarioPrestamo;
     }
 
+    // Método para obtener el título del libro
+    public String getTitulo() {
+        return titulo;
+    }
+    // Método para saber si el libro está disponible
     public boolean isDisponible() {
         return disponible;
     }
