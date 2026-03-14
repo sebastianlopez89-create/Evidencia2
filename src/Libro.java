@@ -1,5 +1,6 @@
 public class Libro {
     //Atributos de tipo privado como id
+    // Proyecto grupo 10
 
     private int id;
     private String titulo;
