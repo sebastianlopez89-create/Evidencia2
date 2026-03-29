@@ -1,50 +1,40 @@
-public class Libro {
-    //Atributos de tipo privado como id
-    // Proyecto grupo 10
-
-    private int id;
-    private String titulo;
+// Clase Libro que extiende (hereda) de Material
+public class Libro extends Material {
+    // Atributos específicos de Libro
     private String autor;
-    private int anioPublicacion;
     private String genero;
-    private Boolean disponible;
-    private String usuarioPrestamo;
-    //Constructor para inicializar los atributos
+
+    // Constructor que llama a super() para inicializar Material
     public Libro(int id, String titulo, String autor, int anioPublicacion, String genero, Boolean disponible) {
-        this.id = id;
-        this.titulo = titulo;
+        super(id, titulo, anioPublicacion, disponible); // Llama al constructor de Material
         this.autor = autor;
-        this.anioPublicacion = anioPublicacion;
         this.genero = genero;
-        this.disponible = disponible;
-        this.usuarioPrestamo = "Ninguno";
     }
+    // ...existing code...
+    
     //Metodos para actualizar el estado de disponibilidad del libro
-    public void actualizarDisponibilidad(boolean disponible) {
-        this.disponible = disponible;
+    // (heredados de Material, aquí solo los sobrescribimos si es necesario)
+
+    // Método para obtener el autor del libro
+    public String getAutor() {
+        return autor;
     }
 
-    public void asignarUsuarioPrestamo(String usuarioPrestamo) {
-        this.usuarioPrestamo = usuarioPrestamo;
+    public String getGenero() {
+        return genero;
     }
 
-    // Método para obtener el título del libro
-    public String getTitulo() {
-        return titulo;
-    }
-    // Método para saber si el libro está disponible
-    public boolean isDisponible() {
-        return disponible;
-    }
-    //Metodo para mostrar la informacion del libro
+    // Override del método mostrarInformacion para agregar info específica de Libro
+    @Override
     public void mostrarInformacion() {
-        System.out.println("Id: " + id);
-        System.out.println("Titulo: " + titulo);
+        System.out.println("=== LIBRO ===");
+        System.out.println("Id: " + getId());
+        System.out.println("Título: " + getTitulo());
         System.out.println("Autor: " + autor);
-        System.out.println("Año de publicacion: " + anioPublicacion);
-        System.out.println("Genero: " + genero);
+        System.out.println("Año de publicación: " + getAnioPublicacion());
+        System.out.println("Género: " + genero);
 
-        if (disponible) {
+        if (isDisponible()) {
             System.out.println("Disponibilidad: Disponible");
             System.out.println("Prestado a: Ninguno");
         } else {

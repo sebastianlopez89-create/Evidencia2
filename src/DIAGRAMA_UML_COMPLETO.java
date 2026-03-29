@@ -1,0 +1,194 @@
+/**
+ * ================================================================
+ * DIAGRAMA UML SIMPLIFICADO - SISTEMA DE BIBLIOTECA
+ * ================================================================
+ * 
+ * En UML (Unified Modeling Language), la flecha triangular vacía (△)
+ * indica herencia/extends.
+ * 
+ * 
+ * DIAGRAMA TEXTUAL COMPLETO:
+ * ==========================
+ * 
+ * 
+ *                      ┌───────────────────┐
+ *                      │     MATERIAL      │ ◄─── Superclase (Clase Base)
+ *                      ├───────────────────┤
+ *                      │   Atributos:      │
+ *                      │  - id: int        │
+ *                      │  - titulo: String │
+ *                      │  - anio: int      │
+ *                      │  - disponible: bo │
+ *                      │  - usuario: String│
+ *                      ├───────────────────┤
+ *                      │   Métodos:        │
+ *                      │  + getTitulo()    │
+ *                      │  + isDisponible() │
+ *                      │  + actualizar...()│
+ *                      │  + asignarUser...│
+ *                      │  + mostrarInfo()*│
+ *                      └───────┬───────────┘
+ *                              │
+ *                              │ ◄─── (△ = extends/herencia)
+ *                              │
+ *              ┌───────────────┴───────────────┐
+ *              │                               │
+ *     ┌────────▼──────────┐         ┌─────────▼────────┐
+ *     │      LIBRO        │         │        CD        │ ◄─── Subclases (Hijos)
+ *     ├───────────────────┤         ├──────────────────┤
+ *     │   Atributos       │         │   Atributos      │
+ *     │  - autor: String  │         │  - artista: Str  │
+ *     │  - genero: String │         │  - canciones: in │
+ *     │                   │         │  - duracion: Str │
+ *     ├───────────────────┤         ├──────────────────┤
+ *     │   Métodos         │         │   Métodos        │
+ *     │  + getAutor()     │         │  + getArtista()  │
+ *     │  + getGenero()    │         │  + getDuracion() │
+ *     │  + mostrarInfo()* │         │  + mostrarInfo() │
+ *     │    (override)     │         │    (override)    │
+ *     └───────────────────┘         └──────────────────┘
+ * 
+ *                   (*) = método que puede ser sobrescrito (polimórfico)
+ * 
+ * 
+ * 
+ * DIAGRAMA CON USUARIOS:
+ * ======================
+ * 
+ *                     ┌──────────────────┐
+ *                     │     USUARIO      │ ◄─── Superclase (Base)
+ *                     ├──────────────────┤
+ *                     │   Atributos:     │
+ *                     │  - id: int       │
+ *                     │  - nombre: Str   │
+ *                     │  - limite: int   │
+ *                     │  - prestados: [] │
+ *                     ├──────────────────┤
+ *                     │   Métodos:       │
+ *                     │  + prestarMat()  │
+ *                     │  + mostrarInfo() │
+ *                     └────────┬─────────┘
+ *                              │
+ *              ┌───────────────┴───────────────┐
+ *              │                               │
+ *     ┌────────▼─────────────────────────────────────┐
+ *     │      USUARIO REGULAR          USUARIO PREMIUM│
+ *     ├────────────────────────────────────────────┤
+ *     │ Límite: 3 materiales         Límite: 5    │
+ *     │ mostrarInfo(): override       materiales   │
+ *     │  Muestra "Usuario Regular"   override      │
+ *     │  Límite: 3                    Muestra      │
+ *     │                               "Premium"    │
+ *     └────────────────────────────────────────────┘
+ * 
+ * 
+ * 
+ * DIAGRAMA DE COMPOSICIÓN (BIBLIOTECA contiene MATERIALES):
+ * ===========================================================
+ * 
+ *     ┌────────────────────────────┐
+ *     │     BIBLIOTECA             │
+ *     ├────────────────────────────┤
+ *     │ - materiales: List<Material>
+ *     │   └── [1] Libro            │ ─┐
+ *     │   └── [2] Libro            │  │
+ *     │   └── [3] CD               │  │ (Polimorfismo:
+ *     │   └── [4] CD               │  │  ArrayList<Material>
+ *     │ - usuarios: List<Usuario>  │  │  contiene subtipos)
+ *     │   └── [1] UsuarioRegular   │ ─┤
+ *     │   └── [2] UsuarioPremium   │  │
+ *     ├────────────────────────────┤  │
+ *     │ + agregarMaterial()        │◄─┘
+ *     │ + mostrarMateriales()      │
+ *     │ + mostrarLibros()          │
+ *     │ + mostrarCDs()             │
+ *     │ + prestarMaterialAUsuario()│
+ *     └────────────────────────────┘
+ * 
+ * 
+ * 
+ * DIAGRAMA DE INTERACCIÓN (Flujo de un préstamo):
+ * ================================================
+ * 
+ *     Usuario          Biblioteca          Material       Usuario
+ *        │                  │                  │             │
+ *        │ prestarLibro()   │                  │             │
+ *        ├─────────────────►│                  │             │
+ *        │                  │ prestarMaterial()               │
+ *        │                  ├─────────────────►│             │
+ *        │                  │                  │             │
+ *        │                  │    updateDispo() │             │
+ *        │                  │◄─────────────────┤             │
+ *        │                  │                  │             │
+ *        │                  │  addToList()     │             │
+ *        │                  ├─────────────────────────────────►
+ *        │                  │                                 │
+ *        ◄──────────────────┤                                 │
+ *                           │                                 │
+ * 
+ * 
+ * 
+ * RELACIONES EN UML:
+ * ==================
+ * 
+ * HERENCIA (Generalización):
+ * ┌────────┐
+ * │ Material│ ◄──△── (Flecha vacía = extends/herencia)
+ * └────────┘
+ *     △
+ *     │ extends
+ *     │
+ * ┌─────────┐
+ * │ Libro   │
+ * └─────────┘
+ * 
+ * 
+ * COMPOSICIÓN/ASOCIACIÓN:
+ * ┌───────────────┐
+ * │ Biblioteca    │ ◄───●── (Línea sólida = "tiene")
+ * └───────────────┘
+ *        ●
+ *        │ tiene
+ *        │ 1 → *
+ * ┌───────────────┐
+ * │ Material      │
+ * └───────────────┘
+ * 
+ * 
+ * ================================================================
+ * RESUMEN: CÓMO IDENTIFICAR HERENCIA EN EL CÓDIGO
+ * ================================================================
+ * 
+ * 1. BUSCA LA PALABRA "extends"
+ *    public class Libro extends Material { }
+ *                         △
+ *                         └─ Esto indica herencia
+ * 
+ * 2. BUSCA @Override
+ *    @Override
+ *    public void mostrarInformacion() { }
+ *    └─ Esto indica que el método está siendo redefinido (polimorfismo)
+ * 
+ * 3. BUSCA super()
+ *    super(id, titulo, anio, disponible);
+ *    └─ Esto llama al método de la superclase
+ * 
+ * 4. BUSCA instanceof
+ *    if (material instanceof Libro) { }
+ *    └─ Esto verifica si un objeto es de un tipo específico
+ * 
+ * 
+ * ================================================================
+ * ARCHIVO CORRESPONDIENTE EN EL PROYECTO:
+ * ================================================================
+ * 
+ * Material.java     ─ Superclase base
+ * Libro.java        ─ Subclase de Material
+ * CD.java           ─ Subclase de Material
+ * Usuario.java      ─ Superclase base
+ * UsuarioRegular    ─ Subclase de Usuario
+ * UsuarioPremium    ─ Subclase de Usuario
+ * Biblioteca.java   ─ Gestor que usa polimorfismo
+ * Main.java         ─ Demostración
+ * 
+ */
